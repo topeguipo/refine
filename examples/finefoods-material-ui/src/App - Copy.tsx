@@ -1,9 +1,3 @@
-//1.run this
-//npm install @mui/system @emotion/react @emotion/styled
-//2.then close project and reopen
-//3. run this
-//npm install -D @refinedev/core
-
 import { Authenticated, GitHubBanner, Refine } from "@refinedev/core";
 import { KBarProvider } from "@refinedev/kbar";
 import {

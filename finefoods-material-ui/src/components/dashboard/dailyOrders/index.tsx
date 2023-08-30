@@ -1,11 +1,3 @@
-//run this to remove import error
-//1# 👇️ with NPM
-//npm install @mui/material @emotion/react @emotion/styled --force
-//2# 👇️ only if you use @mui/icons-material
-//npm install @mui/icons-material --force
-//3# 👇️ only if you use @mui/lab
-//npm install @mui/lab --force
-
 import { useApiUrl, useCustom, useTranslate } from "@refinedev/core";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -14,14 +6,14 @@ import { BarChart, Bar, Tooltip, ResponsiveContainer } from "recharts";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 
-import { ChartTooltip } from "../chartTooltip/index" ;
+import { ChartTooltip } from "../chartTooltip";
 import { ISalesChart } from "../../../interfaces";
 
-export const NewCustomers: React.FC = () => {
+export const DailyOrders: React.FC = () => {
     const t = useTranslate();
 
     const API_URL = useApiUrl();
-    const url = `${API_URL}/newCustomers`;
+    const url = `${API_URL}/dailyOrders`;
 
     const { data } = useCustom<{
         data: ISalesChart[];
@@ -38,43 +30,35 @@ export const NewCustomers: React.FC = () => {
             sx={{
                 height: "230px",
                 p: 1,
-                background: "url(images/new-orders.png)",
-                backgroundColor: "#3d335b",
+                background: "url(images/daily-order.png)",
+                backgroundColor: "#332a4b",
                 backgroundRepeat: "no-repeat",
-                backgroundPosition: "right",
                 backgroundSize: "cover",
             }}
         >
-            <Stack direction="row" justifyContent="space-between">
+            <Stack
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+            >
                 <Typography
                     variant="h5"
                     sx={{ color: "#fff", fontWeight: 700, mb: 0 }}
                 >
-                    {t("dashboard.newCustomers.title")}
+                    {t("dashboard.dailyOrders.title")}
                 </Typography>
 
-                <Stack alignItems="end">
+                <Stack direction="row" alignItems="center">
                     <Typography
                         sx={{ fontWeight: 700, fontSize: 24, color: "#fff" }}
                     >
                         {data?.data.total ?? 0}
                     </Typography>
-                    <Stack direction="row" alignItems="center">
-                        <Typography
-                            sx={{
-                                fontWeight: 700,
-                                color: "#fff",
-                                fontSize: 20,
-                            }}
-                        >
-                            {data?.data.trend ?? 0}%
-                        </Typography>
-                        {(data?.data?.trend ?? 0) > 0 ? (
-                            <ArrowDropUp fontSize="large" color="success" />
-                        ) : (
-                            <ArrowDropDown fontSize="large" color="error" />
-                        )}
-                    </Stack>
+                    {(data?.data?.trend ?? 0) > 0 ? (
+                        <ArrowDropUp fontSize="large" color="success" />
+                    ) : (
+                        <ArrowDropDown fontSize="large" color="error" />
+                    )}
                 </Stack>
             </Stack>
             <Box sx={{ height: "130px" }}>

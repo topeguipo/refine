@@ -1,11 +1,3 @@
-//run this to remove import error
-//1# 👇️ with NPM
-//npm install @mui/material @emotion/react @emotion/styled --force
-//2# 👇️ only if you use @mui/icons-material
-//npm install @mui/icons-material --force
-//3# 👇️ only if you use @mui/lab
-//npm install @mui/lab --force
-
 import { useApiUrl, useCustom, useTranslate } from "@refinedev/core";
 import Box from "@mui/material/Box";
 import Stack from "@mui/material/Stack";
@@ -14,7 +6,7 @@ import { BarChart, Bar, Tooltip, ResponsiveContainer } from "recharts";
 import ArrowDropDown from "@mui/icons-material/ArrowDropDown";
 import ArrowDropUp from "@mui/icons-material/ArrowDropUp";
 
-import { ChartTooltip } from "../chartTooltip/index" ;
+import { ChartTooltip } from "../chartTooltip";
 import { ISalesChart } from "../../../interfaces";
 
 export const NewCustomers: React.FC = () => {

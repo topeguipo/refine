@@ -62,13 +62,13 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
             filters.push({
                 field: "store.id",
                 operator: "eq",
-                value: (store ?? []).length > 0 ? store : undefined,
+                value: (store ?? [].length) > 0 ? store : undefined,
             });
 
             filters.push({
                 field: "user.id",
                 operator: "eq",
-                value: (user ?? []).length > 0 ? user : undefined,
+                value: user,
             });
 
             filters.push({
@@ -76,7 +76,6 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                 operator: "in",
                 value: (status ?? []).length > 0 ? status : undefined,
             });
-
 
             return filters;
         },
@@ -113,7 +112,7 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                     return (
                         <NumberField
                             options={{
-                                currency: "Php",
+                                currency: "USD",
                                 style: "currency",
                             }}
                             value={row.amount / 100}
@@ -127,7 +126,7 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
             {
                 field: "store",
                 headerName: t("orders.fields.store"),
-                valueGetter: ({ row }) => row.store.title, 
+                valueGetter: ({ row }) => row.store.title,
                 flex: 1,
                 minWidth: 150,
                 sortable: false,
@@ -135,11 +134,10 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
             {
                 field: "user",
                 headerName: t("orders.fields.user"),
-                valueGetter: ({ row }) => row.user.fullName, 
+                valueGetter: ({ row }) => row.user.fullName,
                 flex: 1,
                 minWidth: 150,
                 sortable: false,
-               
             },
             {
                 field: "products",
@@ -388,48 +386,6 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                                     />
                                 )}
                             />
-
-                            <Controller
-                                control={control}
-                                name="user"
-                                render={({ field }) => (
-                                    <Autocomplete
-                                        {...orderAutocompleteProps}
-                                        {...field} 
-                                        onChange={(_, value) => {
-                                            field.onChange(
-                                                value.map((p: { fullName: any; }) => p.fullName ?? p),
-                                            );
-                                        }}
-                                        getOptionLabel={(item) => {
-                                            return item?.fullName
-                                                ? item.fullName
-                                                : item;
-                                        }}
-                                        isOptionEqualToValue={(option, value) =>
-                                            value === undefined ||
-                                            option?.id?.toString() ===
-                                                (value?.id ?? value)?.toString()
-                                        }
-                                        renderInput={(params) => (
-                                            <TextField
-                                                {...params}
-                                                label={t(
-                                                    "orders.filter.user.label",
-                                                )}
-                                                placeholder={t(
-                                                    "orders.filter.user.placeholder",
-                                                )}
-                                                margin="normal"
-                                                variant="outlined"
-                                                size="small"
-                                            />
-                                        )}
-                                    />
-                                )}
-                            />
-
-                            {/*
                             <Controller
                                 control={control}
                                 name="user"
@@ -445,7 +401,8 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                                                 ? item.fullName
                                                 : userAutocompleteProps?.options?.find(
                                                       (p) =>
-                                                          p.id.toString() ===  item.toString(),
+                                                          p.id.toString() ===
+                                                          item.toString(),
                                                   )?.fullName ?? "";
                                         }}
                                         isOptionEqualToValue={(option, value) =>
@@ -470,7 +427,6 @@ export const OrderList: React.FC<IResourceComponentsProps> = () => {
                                     />
                                 )}
                             />
-                            */}
                             <br />
                             <Button type="submit" variant="contained">
                                 {t("orders.filter.submit")}
